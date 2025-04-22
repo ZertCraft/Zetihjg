@@ -1,104 +1,62 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found - ZERTCRAFT</title>
-    <link rel="icon" href="https://k.top4top.io/p_3350fbnhi0.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: #000;
-            color: white;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .logo {
-            width: 150px;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-family: 'Orbitron', sans-serif;
-            color: #E1BEE7;
-            text-shadow: 0 0 10px #E1BEE7;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .server-info {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(156, 39, 176, 0.5);
-            display: inline-block;
-            text-align: left;
-        }
-
-        .server-info p {
-            font-size: 1rem;
-            margin: 5px 0;
-        }
-
-        .server-info span {
-            font-weight: bold;
-            color: #E1BEE7;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tes Seberapa Gay Kamu?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #e91e63;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+      margin-top: 20px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
+  <h1>Tes Seberapa Gay Kamu?</h1>
+  <p>Tulis sesuatu nama dan lihat hasilnya!</p>
+  <textarea id="userInput" placeholder="Tulis di sini..."></textarea><br/>
+  <button onclick="cekGay()">CEK</button>
+  <div class="result" id="hasil"></div>
 
-    <img src="https://k.top4top.io/p_3350fbnhi0.png" alt="ZERTCRAFT Logo" class="logo">
-    <h1>404 Not Found</h1>
-    <p>Halaman yang Anda cari tidak ditemukan.</p>
+  <script>
+    function cekGay() {
+      const input = document.getElementById("userInput").value.toLowerCase();
+      const hasil = document.getElementById("hasil");
 
-    <div class="server-info">
-        <p><strong>IP Java Edition:</strong> <span id="copy-java">play.zertcraft.xyz</span> (Port: 25565)</p>
-        <p><strong>IP Bedrock Edition:</strong> <span id="copy-bedrock">play.zertcraft.xyz</span> (Port: 19132)</p>
-        <p><strong>Status Server:</strong> <span id="server-status">Memeriksa...</span></p>
-        <p><strong>Pemain Online:</strong> <span id="player-count">Memeriksa...</span></p>
-        <p><strong>Lokasi Server:</strong> Singapura</p>
-    </div>
-
-    <script>
-        async function checkServerStatus() {
-            const statusElement = document.getElementById('server-status');
-            const playerCountElement = document.getElementById('player-count');
-            try {
-                const response = await fetch('https://api.mcsrvstat.us/2/play.zertcraft.xyz');
-                const data = await response.json();
-                if (data.online) {
-                    statusElement.textContent = '🟢 Online';
-                    playerCountElement.textContent = data.players.online;
-                } else {
-                    statusElement.textContent = '🔴 Offline';
-                    playerCountElement.textContent = '0';
-                }
-            } catch (error) {
-                statusElement.textContent = '🔴 Gagal memeriksa status';
-                playerCountElement.textContent = '0';
-            }
-        }
-
-        checkServerStatus();
-        setInterval(checkServerStatus, 30000);
-    </script>
-
+      if (input.includes("napo")) {
+        hasil.innerText = "100% GAY!";
+      } else if (input.includes("zero")) {
+        hasil.innerText = "0% GAY!";
+      } else if (input.trim() === "") {
+        hasil.innerText = "Tulis dulu dong!";
+      } else {
+        const random = Math.floor(Math.random() * 99) + 1; // 1-99
+        hasil.innerText = random + "% GAY!";
+      }
+    }
+  </script>
 </body>
 </html>
