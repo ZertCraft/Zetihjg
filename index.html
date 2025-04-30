@@ -1,60 +1,101 @@
+</html>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tes Seberapa Gay Kamu?</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINECRAFT IP CEK</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      padding: 30px;
       text-align: center;
-      padding: 40px;
     }
-    h1 {
-      color: #e91e63;
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 5px;
+      border: none;
     }
-    textarea {
-      width: 80%;
-      height: 100px;
-      margin-top: 20px;
+    input {
+      background: #161b22;
+      color: white;
     }
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #e91e63;
+      background: #238636;
       color: white;
-      border: none;
       cursor: pointer;
     }
     .result {
       margin-top: 30px;
-      font-size: 1.5em;
-      font-weight: bold;
+      background: #161b22;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      text-align: left;
+    }
+    h1 {
+      color: #58a6ff;
     }
   </style>
 </head>
 <body>
-  <h1>Tes Seberapa Gay Kamu?</h1>
-  <p>Tulis sesuatu nama dan lihat hasilnya!</p>
-  <textarea id="userInput" placeholder="Tulis di sini..."></textarea><br/>
-  <button onclick="cekGay()">CEK</button>
-  <div class="result" id="hasil"></div>
+  <h1>Cek Subdomain & Info IP</h1>
+  <p>Masukkan domain (contoh: exempel.com)</p>
+  <input type="text" id="domain" placeholder="Masukkan domain/subdomain...">
+  <button onclick="cekSubdomain()">Cek Sekarang</button>
+
+  <div class="result" id="result"></div>
 
   <script>
-    function cekGay() {
-      const input = document.getElementById("userInput").value.toLowerCase();
-      const hasil = document.getElementById("hasil");
+    async function cekSubdomain() {
+      const domain = document.getElementById("domain").value.trim();
+      const resultDiv = document.getElementById("result");
+      if (!domain) {
+        resultDiv.innerHTML = "<p>Silakan masukkan subdomain terlebih dahulu.</p>";
+        return;
+      }
 
-      if (input.includes("napo")) {
-        hasil.innerText = "100% GAY!";
-      } else if (input.includes("zero")) {
-        hasil.innerText = "0% GAY!";
-      } else if (input.trim() === "") {
-        hasil.innerText = "Tulis dulu dong!";
-      } else {
-        const random = Math.floor(Math.random() * 99) + 1; // 1-99
-        hasil.innerText = random + "% GAY!";
+      resultDiv.innerHTML = "<p>Memeriksa...</p>";
+
+      try {
+        // DNS check to get IP
+        const dnsRes = await fetch(`https://dns.google/resolve?name=${domain}&type=A`);
+        const dnsData = await dnsRes.json();
+
+        if (!dnsData.Answer || dnsData.Answer.length === 0) {
+          resultDiv.innerHTML = "<p>Subdomain tidak ditemukan atau tidak memiliki record A.</p>";
+          return;
+        }
+
+        const ip = dnsData.Answer[0].data;
+
+        // Get IP details
+        const ipRes = await fetch(`http://ip-api.com/json/${ip}`);
+        const ipData = await ipRes.json();
+
+        if (ipData.status !== "success") {
+          resultDiv.innerHTML = "<p>Gagal mengambil data IP.</p>";
+          return;
+        }
+
+        resultDiv.innerHTML = `
+          <h3>Hasil Pemeriksaan</h3>
+          <p><strong>Subdomain:</strong> ${domain}</p>
+          <p><strong>Alamat IP:</strong> ${ip}</p>
+          <p><strong>Negara:</strong> ${ipData.country} (${ipData.countryCode})</p>
+          <p><strong>Wilayah:</strong> ${ipData.regionName}</p>
+          <p><strong>Kota:</strong> ${ipData.city}</p>
+          <p><strong>ISP:</strong> ${ipData.isp}</p>
+          <p><strong>Organisasi:</strong> ${ipData.org}</p>
+          <p><strong>Status Server:</strong> Online / Terhubung</p>
+        `;
+      } catch (error) {
+        resultDiv.innerHTML = "<p>Terjadi kesalahan saat mengambil data.</p>";
       }
     }
   </script>
