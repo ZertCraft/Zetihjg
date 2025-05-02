@@ -2,49 +2,171 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AnimeScheduleID - Jadwal Anime Harian</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Beli AM Premium 1 Tahun hanya 20K!">
+    <title>AM PREMIUM 1 TAHUN - 20K</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1c1c1c;
+            color: #f5f5f5;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        #logo {
+            margin-top: 20px;
+        }
+
+        #logo img {
+            width: 150px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        #product {
+            background-color: #2c2c2c;
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #product h2 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #d9534f;
+            font-size: 1.4em;
+        }
+
+        .discount-price {
+            color: #f5f5f5;
+            font-size: 2.5em;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.5em;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #features {
+            margin-top: 40px;
+        }
+
+        #features h3 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #features ul {
+            list-style: none;
+            padding-left: 0;
+            text-align: left;
+            margin-top: 10px;
+            font-size: 1.3em;
+        }
+
+        #features ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.2em;
+            color: #bbb;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <h1><i class="fas fa-tv"></i> AnimeScheduleID</h1>
-            <p id="currentDate">Jadwal tayang anime hari ini</p>
-        </div>
-        <div class="last-updated" id="lastUpdated">
-            <i class="fas fa-sync-alt"></i> Memperbarui jadwal...
+        <h1>AM PREMIUM 1</h1>
+        <p>Beli AM Premium 1 Tahun dengan harga hanya 20K!</p>
+
+        <!-- Logo Image -->
+        <div id="logo">
+            <img src="https://f.top4top.io/p_3409jxena0.png" alt="AM Premium Logo"> <!-- Ganti dengan URL gambar logo Anda -->
         </div>
     </header>
-    
-    <div class="container">
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-bar" placeholder="Cari anime..." id="searchInput">
-            <button id="refreshButton"><i class="fas fa-sync-alt"></i></button>
-        </div>
-        
-        <div class="day-filter" id="dayFilter">
-            <!-- Filter hari akan diisi oleh JavaScript -->
-        </div>
-        
-        <div class="loading-spinner" id="loadingSpinner">
-            <div class="spinner"></div>
-            <p>Memuat data anime...</p>
-        </div>
-        
-        <div class="anime-grid" id="animeGrid">
-            <!-- Anime cards akan diisi oleh JavaScript -->
-        </div>
-        
-        <div class="error-message" id="errorMessage">
-            <i class="fas fa-exclamation-triangle"></i>
-            <p>Gagal memuat data anime. Silakan coba lagi.</p>
-            <button id="retryButton">Coba Lagi</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <section id="product">
+        <h1>
+            <span class="original-price">Rp228.000</span> 
+            <span class="discount-price">Rp20.000</span>
+        </h1>
+        <p>Nikmati akses premium selama 1 tahun untuk AM (Alight Motion). Dapatkan berbagai fitur eksklusif untuk meningkatkan kualitas video kamu.</p>
+        <button onclick="window.location.href='https://wa.me/6285141145301?text=Beli%20AM%20Premium%201%20Tahun%20seharga%2020K'">Beli Sekarang</button>
+    </section>
+    <section id="features">
+        <h3>Fitur Utama:</h3>
+        <ul>
+            <li>Akses ke berbagai efek premium yang eksklusif</li>
+            <li>Tanpa gangguan iklan selama penggunaan</li>
+            <li>Fitur-fitur khusus untuk edit video lebih profesional dan kreatif</li>
+            <li>Penggunaan watermark dihapus, video jadi lebih bersih</li>
+            <li>Akses ke pembaruan fitur terbaru secara otomatis</li>
+            <li>Rasakan kualitas video dengan resolusi dan frame rate lebih tinggi</li>
+            <li>Dapatkan akses ke template dan transisi premium yang lebih variatif</li>
+            <li>Dukungan penuh dari tim kami melalui email dan WhatsApp</li>
+        </ul>
+    </section>
+    <footer>
+        <p>Hubungi kami: <a href="mailto:exempel@coming.soon">zertseler@coming.soon</a></p>
+        <p>&copy; 2025 AM Premium Store</p>
+    </footer>
 </body>
 </html>
