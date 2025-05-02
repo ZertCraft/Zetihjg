@@ -1,5 +1,5 @@
 // Konfigurasi
-const API_URL = 'https://api.myanimelist.net/v2'; // Ganti dengan API sebenarnya
+const API_URL = 'https://animeschedule.net/api/v3'; // Ganti dengan API sebenarnya
 const UPDATE_INTERVAL = 6 * 60 * 60 * 1000; // Pembaruan setiap 6 jam
 const DAILY_RESET_TIME = 3; // Jam 3 pagi waktu reset harian (WIB)
 
