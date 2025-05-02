@@ -1,103 +1,116 @@
-</html>
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MINECRAFT IP CEK</title>
+  <title>ZERT ID - Statistik Sosial</title>
   <style>
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #0d1117;
-      color: #c9d1d9;
+      background: #fff url('https://images.unsplash.com/photo-1548786817-639306cf1a00?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #1e293b;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.85);
       padding: 30px;
       text-align: center;
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #14532d;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    input, button {
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 5px;
-      border: none;
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
-    input {
-      background: #161b22;
-      color: white;
+
+    .item {
+      margin: 20px 0;
+      font-size: 1.5em;
+      padding: 10px 20px;
+      background: #ecfdf5;
+      border-left: 6px solid #10b981;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
     }
-    button {
-      background: #238636;
-      color: white;
-      cursor: pointer;
+
+    .label {
+      font-weight: bold;
+      color: #065f46;
     }
-    .result {
-      margin-top: 30px;
-      background: #161b22;
-      padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      text-align: left;
+
+    .value {
+      color: #111827;
     }
-    h1 {
-      color: #58a6ff;
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #555;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <h1>Cek Subdomain & Info IP</h1>
-  <p>Masukkan domain (contoh: exempel.com)</p>
-  <input type="text" id="domain" placeholder="Masukkan domain/subdomain...">
-  <button onclick="cekSubdomain()">Cek Sekarang</button>
+  <header>ZERT ID</header>
+  <div class="container">
+    <div class="item">
+      <span class="label">Followers TikTok:</span>
+      <span class="value" id="tiktok-followers">Memuat...</span>
+    </div>
+    <div class="item">
+      <span class="label">Likes TikTok:</span>
+      <span class="value" id="tiktok-likes">Memuat...</span>
+    </div>
+    <div class="item">
+      <span class="label">Subscribers YouTube:</span>
+      <span class="value" id="yt-subs">Memuat...</span>
+    </div>
+    <div class="item">
+      <span class="label">Penayangan YouTube:</span>
+      <span class="value" id="yt-views">Memuat...</span>
+    </div>
+  </div>
 
-  <div class="result" id="result"></div>
+  <footer>&copy; 2025 - Zert ID | TikTok: @zert_id | YouTube: @zertanimejj</footer>
 
   <script>
-    async function cekSubdomain() {
-      const domain = document.getElementById("domain").value.trim();
-      const resultDiv = document.getElementById("result");
-      if (!domain) {
-        resultDiv.innerHTML = "<p>Silakan masukkan subdomain terlebih dahulu.</p>";
-        return;
-      }
+    // TikTok real-time (tidak resmi)
+    fetch("https://api.tikwm.com/user/info?unique_id=zert_id")
+      .then(res => res.json())
+      .then(data => {
+        const user = data.data;
+        document.getElementById("tiktok-followers").textContent = Number(user.follower_count).toLocaleString();
+        document.getElementById("tiktok-likes").textContent = Number(user.total_favorited).toLocaleString();
+      })
+      .catch(() => {
+        document.getElementById("tiktok-followers").textContent = "Gagal";
+        document.getElementById("tiktok-likes").textContent = "Gagal";
+      });
 
-      resultDiv.innerHTML = "<p>Memeriksa...</p>";
+    // YouTube API
+    const apiKey = 'GANTI_DENGAN_API_KEY_YOUTUBE';
+    const channelId = 'UCzqu2_ydQUOAxZbbFtTAYWg';
 
-      try {
-        // DNS check to get IP
-        const dnsRes = await fetch(`https://dns.google/resolve?name=${domain}&type=A`);
-        const dnsData = await dnsRes.json();
-
-        if (!dnsData.Answer || dnsData.Answer.length === 0) {
-          resultDiv.innerHTML = "<p>Subdomain tidak ditemukan atau tidak memiliki record A.</p>";
-          return;
-        }
-
-        const ip = dnsData.Answer[0].data;
-
-        // Get IP details
-        const ipRes = await fetch(`http://ip-api.com/json/${ip}`);
-        const ipData = await ipRes.json();
-
-        if (ipData.status !== "success") {
-          resultDiv.innerHTML = "<p>Gagal mengambil data IP.</p>";
-          return;
-        }
-
-        resultDiv.innerHTML = `
-          <h3>Hasil Pemeriksaan</h3>
-          <p><strong>Subdomain:</strong> ${domain}</p>
-          <p><strong>Alamat IP:</strong> ${ip}</p>
-          <p><strong>Negara:</strong> ${ipData.country} (${ipData.countryCode})</p>
-          <p><strong>Wilayah:</strong> ${ipData.regionName}</p>
-          <p><strong>Kota:</strong> ${ipData.city}</p>
-          <p><strong>ISP:</strong> ${ipData.isp}</p>
-          <p><strong>Organisasi:</strong> ${ipData.org}</p>
-          <p><strong>Status Server:</strong> Online / Terhubung</p>
-        `;
-      } catch (error) {
-        resultDiv.innerHTML = "<p>Terjadi kesalahan saat mengambil data.</p>";
-      }
-    }
+    fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
+      .then(res => res.json())
+      .then(data => {
+        const stats = data.items[0].statistics;
+        document.getElementById('yt-subs').textContent = new Intl.NumberFormat().format(stats.subscriberCount);
+        document.getElementById('yt-views').textContent = new Intl.NumberFormat().format(stats.viewCount);
+      })
+      .catch(() => {
+        document.getElementById('yt-subs').textContent = 'Gagal';
+        document.getElementById('yt-views').textContent = 'Gagal';
+      });
   </script>
 </body>
 </html>
