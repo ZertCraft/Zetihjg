@@ -1,172 +1,528 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Beli AM Premium 1 Tahun hanya 20K!">
-    <title>AM PREMIUM 1 TAHUN - 20K</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1c1c1c;
-            color: #f5f5f5;
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            background-color: #333;
-            color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.2em;
-        }
-
-        #logo {
-            margin-top: 20px;
-        }
-
-        #logo img {
-            width: 150px;
-            height: auto;
-            margin-top: 10px;
-        }
-
-        #product {
-            background-color: #2c2c2c;
-            padding: 40px;
-            border-radius: 10px;
-            margin-top: 40px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        #product h2 {
-            font-size: 2.5em;
-            color: #4CAF50;
-            margin-bottom: 10px;
-        }
-
-        .original-price {
-            text-decoration: line-through;
-            color: #d9534f;
-            font-size: 1.4em;
-        }
-
-        .discount-price {
-            color: #f5f5f5;
-            font-size: 2.5em;
-            margin-top: 10px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.5em;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #features {
-            margin-top: 40px;
-        }
-
-        #features h3 {
-            font-size: 2.5em;
-            color: #4CAF50;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        #features ul {
-            list-style: none;
-            padding-left: 0;
-            text-align: left;
-            margin-top: 10px;
-            font-size: 1.3em;
-        }
-
-        #features ul li {
-            padding: 12px 0;
-            border-bottom: 1px solid #444;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 1.2em;
-            color: #bbb;
-        }
-
-        footer a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZER GTAFIK - Pemantauan Kripto Real-time</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-bg: radial-gradient(circle at top, #2d1e59, #0e0b16);
+      --card-bg: rgba(31, 17, 51, 0.9);
+      --card-border: #5a3fc0;
+      --positive: #4ade80;
+      --negative: #f87171;
+      --text-primary: #f0e6ff;
+      --text-secondary: #b8b2c9;
+    }
+    
+    body {
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+    
+    .crypto-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--card-border);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .crypto-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+      border-color: #7c5cf5;
+    }
+    
+    .digital-font {
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.5px;
+    }
+    
+    .positive {
+      color: var(--positive);
+    }
+    
+    .negative {
+      color: var(--negative);
+    }
+    
+    .price-change {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    
+    .positive-bg {
+      background-color: rgba(74, 222, 128, 0.1);
+    }
+    
+    .negative-bg {
+      background-color: rgba(248, 113, 113, 0.1);
+    }
+    
+    .search-input {
+      background: rgba(31, 17, 51, 0.7);
+      border: 1px solid #5a3fc0;
+      color: white;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #7c5cf5;
+      box-shadow: 0 0 0 2px rgba(92, 63, 192, 0.3);
+    }
+    
+    .tab-active {
+      border-bottom: 2px solid #7c5cf5;
+      color: white;
+      font-weight: 500;
+    }
+    
+    .loading-spinner {
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(31, 17, 51, 0.5);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #5a3fc0;
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7c5cf5;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>AM PREMIUM 1</h1>
-        <p>Beli AM Premium 1 Tahun dengan harga hanya 20K!</p>
-
-        <!-- Logo Image -->
-        <div id="logo">
-            <img src="https://f.top4top.io/p_3409jxena0.png" alt="AM Premium Logo"> <!-- Ganti dengan URL gambar logo Anda -->
+  <header class="p-4 bg-gradient-to-r from-purple-800 to-indigo-900 shadow-lg sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+          <i class="fas fa-chart-line text-white text-xl"></i>
         </div>
-    </header>
-    <section id="product">
-        <h1>
-            <span class="original-price">Rp228.000</span> 
-            <span class="discount-price">Rp20.000</span>
-        </h1>
-        <p>Nikmati akses premium selama 1 tahun untuk AM (Alight Motion). Dapatkan berbagai fitur eksklusif untuk meningkatkan kualitas video kamu.</p>
-        <button onclick="window.location.href='https://wa.me/6285141145301?text=Beli%20AM%20Premium%201%20Tahun%20seharga%2020K'">Beli Sekarang</button>
+        <div>
+          <h1 class="text-white text-xl md:text-2xl font-bold">ZER GTAFIK</h1>
+          <p class="text-xs text-gray-300">Pemantauan Kripto Real-time 24/7</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div class="hidden md:block text-sm text-gray-300">
+          <span id="current-time" class="digital-font"></span>
+          <span class="mx-2">•</span>
+          <span>Update setiap detik</span>
+        </div>
+        <div class="relative">
+          <input type="text" id="search-crypto" placeholder="Cari kripto..." 
+                 class="search-input px-4 py-2 rounded-full text-sm w-40 sm:w-56 focus:w-64 transition-all duration-300">
+          <i class="fas fa-search absolute right-3 top-2.5 text-gray-400 text-sm"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex space-x-4 mb-6 border-b border-gray-700 pb-2">
+      <button class="tab-active px-3 py-1 text-sm">Semua</button>
+      <button class="px-3 py-1 text-sm text-gray-400 hover:text-white">Top 10</button>
+      <button class="px-3 py-1 text-sm text-gray-400 hover:text-white">DeFi</button>
+      <button class="px-3 py-1 text-sm text-gray-400 hover:text-white">NFT</button>
+      <button class="px-3 py-1 text-sm text-gray-400 hover:text-white">Metaverse</button>
+    </div>
+    
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8" id="crypto-container">
+      <!-- Crypto cards will be loaded here -->
+      <div class="col-span-full flex justify-center py-10">
+        <div class="animate-pulse flex flex-col items-center">
+          <div class="loading-spinner text-purple-400 mb-2">
+            <i class="fas fa-circle-notch text-2xl"></i>
+          </div>
+          <p class="text-gray-400">Memuat data kripto...</p>
+        </div>
+      </div>
     </section>
-    <section id="features">
-        <h3>Fitur Utama:</h3>
-        <ul>
-            <li>Akses ke berbagai efek premium yang eksklusif</li>
-            <li>Tanpa gangguan iklan selama penggunaan</li>
-            <li>Fitur-fitur khusus untuk edit video lebih profesional dan kreatif</li>
-            <li>Penggunaan watermark dihapus, video jadi lebih bersih</li>
-            <li>Akses ke pembaruan fitur terbaru secara otomatis</li>
-            <li>Rasakan kualitas video dengan resolusi dan frame rate lebih tinggi</li>
-            <li>Dapatkan akses ke template dan transisi premium yang lebih variatif</li>
-            <li>Dukungan penuh dari tim kami melalui email dan WhatsApp</li>
-        </ul>
-    </section>
-    <footer>
-        <p>Hubungi kami: <a href="mailto:exempel@coming.soon">zertseler@coming.soon</a></p>
-        <p>&copy; 2025 AM Premium Store</p>
-    </footer>
+
+    <div class="bg-gradient-to-br from-purple-900/80 to-indigo-900/80 rounded-xl p-4 mb-6 shadow-lg border border-purple-800/50">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Grafik Interaktif <span id="chart-title">BTC/USDT</span></h2>
+        <div class="flex space-x-2">
+          <select id="chart-pair" class="bg-gray-800 text-white text-sm rounded px-3 py-1 border border-gray-700 focus:outline-none focus:border-purple-500">
+            <option value="BTCUSDT">BTC/USDT</option>
+            <option value="ETHUSDT">ETH/USDT</option>
+            <option value="BNBUSDT">BNB/USDT</option>
+            <option value="SOLUSDT">SOL/USDT</option>
+            <option value="XRPUSDT">XRP/USDT</option>
+            <option value="ADAUSDT">ADA/USDT</option>
+            <option value="DOGEUSDT">DOGE/USDT</option>
+            <option value="DOTUSDT">DOT/USDT</option>
+          </select>
+          <select id="chart-interval" class="bg-gray-800 text-white text-sm rounded px-3 py-1 border border-gray-700 focus:outline-none focus:border-purple-500">
+            <option value="60">1 Jam</option>
+            <option value="240">4 Jam</option>
+            <option value="D">1 Hari</option>
+            <option value="W">1 Minggu</option>
+          </select>
+        </div>
+      </div>
+      <div class="tradingview-widget-container rounded-lg overflow-hidden">
+        <div id="tradingview_chart" style="height: 500px;"></div>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/80 rounded-xl p-4 shadow-lg border border-gray-700">
+      <h2 class="text-xl font-semibold mb-4">Market Overview</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-700">
+          <thead>
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">#</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Nama</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Harga</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">24h %</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Kap. Pasar</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Volume (24h)</th>
+            </tr>
+          </thead>
+          <tbody id="market-table" class="divide-y divide-gray-700">
+            <!-- Market data will be loaded here -->
+            <tr>
+              <td colspan="6" class="px-4 py-8 text-center text-gray-400">
+                <div class="flex justify-center">
+                  <div class="loading-spinner text-purple-400 mr-2">
+                    <i class="fas fa-circle-notch"></i>
+                  </div>
+                  Memuat data pasar...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-6 text-gray-400 text-sm border-t border-gray-800 mt-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <p>Powered by CoinGecko API & TradingView | Dibuat oleh ZER GTAFIK</p>
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-telegram"></i></a>
+          <a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      <div class="mt-4 text-xs text-gray-500">
+        <p>Informasi yang ditampilkan tidak merupakan rekomendasi investasi. Lakukan riset Anda sendiri sebelum berinvestasi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Major cryptocurrencies with their IDs and symbols
+    const cryptoData = [
+      { id: 'bitcoin', symbol: 'btc', name: 'Bitcoin' },
+      { id: 'ethereum', symbol: 'eth', name: 'Ethereum' },
+      { id: 'tether', symbol: 'usdt', name: 'Tether' },
+      { id: 'binancecoin', symbol: 'bnb', name: 'BNB' },
+      { id: 'solana', symbol: 'sol', name: 'Solana' },
+      { id: 'ripple', symbol: 'xrp', name: 'XRP' },
+      { id: 'cardano', symbol: 'ada', name: 'Cardano' },
+      { id: 'dogecoin', symbol: 'doge', name: 'Dogecoin' },
+      { id: 'polkadot', symbol: 'dot', name: 'Polkadot' },
+      { id: 'shiba-inu', symbol: 'shib', name: 'Shiba Inu' },
+      { id: 'avalanche-2', symbol: 'avax', name: 'Avalanche' },
+      { id: 'chainlink', symbol: 'link', name: 'Chainlink' },
+      { id: 'polygon-pos', symbol: 'matic', name: 'Polygon' },
+      { id: 'bitcoin-cash', symbol: 'bch', name: 'Bitcoin Cash' },
+      { id: 'uniswap', symbol: 'uni', name: 'Uniswap' },
+      { id: 'litecoin', symbol: 'ltc', name: 'Litecoin' },
+      { id: 'stellar', symbol: 'xlm', name: 'Stellar' },
+      { id: 'vechain', symbol: 'vet', name: 'VeChain' },
+      { id: 'filecoin', symbol: 'fil', name: 'Filecoin' },
+      { id: 'cosmos', symbol: 'atom', name: 'Cosmos' },
+      { id: 'monero', symbol: 'xmr', name: 'Monero' },
+      { id: 'aave', symbol: 'aave', name: 'Aave' },
+      { id: 'algorand', symbol: 'algo', name: 'Algorand' },
+      { id: 'theta-network', symbol: 'theta', name: 'Theta Network' },
+      { id: 'eos', symbol: 'eos', name: 'EOS' },
+      { id: 'tezos', symbol: 'xtz', name: 'Tezos' },
+      { id: 'pancakeswap-token', symbol: 'cake', name: 'PancakeSwap' },
+      { id: 'klay-token', symbol: 'klay', name: 'Klaytn' },
+      { id: 'maker', symbol: 'mkr', name: 'Maker' },
+      { id: 'neo', symbol: 'neo', name: 'Neo' }
+    ];
+
+    let previousPrices = {};
+    let currentChart = null;
+    let allMarketData = [];
+
+    // Update current time
+    function updateCurrentTime() {
+      const now = new Date();
+      const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZone: 'Asia/Jakarta'
+      };
+      document.getElementById('current-time').textContent = now.toLocaleDateString('id-ID', options);
+    }
+
+    // Format large numbers
+    function formatNumber(num) {
+      if (num >= 1000000000) {
+        return (num / 1000000000).toFixed(2) + 'B';
+      }
+      if (num >= 1000000) {
+        return (num / 1000000).toFixed(2) + 'M';
+      }
+      if (num >= 1000) {
+        return (num / 1000).toFixed(2) + 'K';
+      }
+      return num.toFixed(2);
+    }
+
+    // Create crypto cards
+    function createCards() {
+      const container = document.getElementById('crypto-container');
+      container.innerHTML = '';
+      
+      cryptoData.forEach((crypto, index) => {
+        container.innerHTML += `
+          <div id="${crypto.id}-card" class="p-4 rounded-xl crypto-card hover:shadow-lg transition-all duration-300">
+            <div class="flex justify-between items-start mb-2">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold">
+                  ${index + 1}
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold">${crypto.name}</h3>
+                  <p class="text-sm text-gray-400 uppercase">${crypto.symbol}</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="price text-xl digital-font font-medium">-</p>
+                <p class="change text-sm mt-1">-</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-700 flex justify-between items-center">
+              <div class="text-xs text-gray-400">Kap. Pasar: <span class="market-cap">-</span></div>
+              <div class="text-xs text-gray-400">24h Vol: <span class="volume">-</span></div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Fetch prices and market data
+    async function fetchMarketData() {
+      try {
+        const ids = cryptoData.map(c => c.id).join(',');
+        const res = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h`);
+        const data = await res.json();
+        
+        allMarketData = data;
+        updateCards(data);
+        updateMarketTable(data);
+      } catch (error) {
+        console.error('Error fetching market data:', error);
+      }
+    }
+
+    // Update crypto cards with new data
+    function updateCards(data) {
+      data.forEach(crypto => {
+        const card = document.getElementById(`${crypto.id}-card`);
+        if (!card) return;
+        
+        const currentPrice = crypto.current_price;
+        const priceChange24h = crypto.price_change_percentage_24h;
+        const marketCap = crypto.market_cap;
+        const volume = crypto.total_volume;
+        
+        const priceElement = card.querySelector('.price');
+        const changeElement = card.querySelector('.change');
+        const marketCapElement = card.querySelector('.market-cap');
+        const volumeElement = card.querySelector('.volume');
+        
+        // Format IDR price (assuming 1 USD = 16000 IDR)
+        const idrPrice = (currentPrice * 16000).toLocaleString('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        });
+        
+        priceElement.textContent = idrPrice;
+        changeElement.textContent = `${priceChange24h.toFixed(2)}%`;
+        marketCapElement.textContent = `$${formatNumber(marketCap)}`;
+        volumeElement.textContent = `$${formatNumber(volume)}`;
+        
+        // Set color classes based on price change
+        if (priceChange24h > 0) {
+          priceElement.classList.add('positive');
+          priceElement.classList.remove('negative');
+          changeElement.className = 'change text-sm mt-1 positive';
+          changeElement.innerHTML = `<i class="fas fa-arrow-up mr-1"></i> ${priceChange24h.toFixed(2)}%`;
+        } else if (priceChange24h < 0) {
+          priceElement.classList.add('negative');
+          priceElement.classList.remove('positive');
+          changeElement.className = 'change text-sm mt-1 negative';
+          changeElement.innerHTML = `<i class="fas fa-arrow-down mr-1"></i> ${priceChange24h.toFixed(2)}%`;
+        } else {
+          priceElement.classList.remove('positive', 'negative');
+          changeElement.className = 'change text-sm mt-1 text-gray-400';
+        }
+      });
+    }
+
+    // Update market table
+    function updateMarketTable(data) {
+      const tableBody = document.getElementById('market-table');
+      tableBody.innerHTML = '';
+      
+      data.forEach((crypto, index) => {
+        const priceChange24h = crypto.price_change_percentage_24h;
+        const changeClass = priceChange24h > 0 ? 'positive' : 'negative';
+        const changeBgClass = priceChange24h > 0 ? 'positive-bg' : 'negative-bg';
+        
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-800/50 transition-colors';
+        row.innerHTML = `
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${index + 1}</td>
+          <td class="px-4 py-3 whitespace-nowrap">
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold mr-3">
+                ${index + 1}
+              </div>
+              <div>
+                <div class="text-sm font-medium text-white">${crypto.name}</div>
+                <div class="text-sm text-gray-400 uppercase">${crypto.symbol}</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-white text-right">
+            $${crypto.current_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 })}
+          </td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-right">
+            <span class="${changeClass} ${changeBgClass} price-change">
+              <i class="fas fa-arrow-${priceChange24h > 0 ? 'up' : 'down'} mr-1"></i>
+              ${Math.abs(priceChange24h).toFixed(2)}%
+            </span>
+          </td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300 text-right">
+            $${formatNumber(crypto.market_cap)}
+          </td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300 text-right">
+            $${formatNumber(crypto.total_volume)}
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Initialize TradingView chart
+    function initChart(pair = 'BTCUSDT', interval = '60') {
+      if (currentChart) {
+        currentChart.remove();
+      }
+      
+      currentChart = new TradingView.widget({
+        "autosize": true,
+        "symbol": `BINANCE:${pair}`,
+        "interval": interval,
+        "timezone": "Asia/Jakarta",
+        "theme": "dark",
+        "style": "1",
+        "locale": "id",
+        "toolbar_bg": "#1a112f",
+        "enable_publishing": false,
+        "hide_top_toolbar": false,
+        "hide_side_toolbar": false,
+        "allow_symbol_change": true,
+        "details": true,
+        "hotlist": true,
+        "calendar": true,
+        "container_id": "tradingview_chart"
+      });
+      
+      // Update chart title
+      document.getElementById('chart-title').textContent = `${pair.slice(0, -4)}/${pair.slice(-4)}`;
+    }
+
+    // Search functionality
+    function setupSearch() {
+      const searchInput = document.getElementById('search-crypto');
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.crypto-card');
+        
+        cards.forEach(card => {
+          const cryptoName = card.querySelector('h3').textContent.toLowerCase();
+          const cryptoSymbol = card.querySelector('p:not(.price):not(.change)').textContent.toLowerCase();
+          
+          if (cryptoName.includes(searchTerm) {
+            card.style.display = 'block';
+          } else if (cryptoSymbol.includes(searchTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // Initialize the dashboard
+    function initDashboard() {
+      createCards();
+      updateCurrentTime();
+      setInterval(updateCurrentTime, 1000);
+      fetchMarketData();
+      setInterval(fetchMarketData, 60000); // Update every minute
+      initChart();
+      setupSearch();
+      
+      // Chart pair selector
+      document.getElementById('chart-pair').addEventListener('change', (e) => {
+        initChart(e.target.value, document.getElementById('chart-interval').value);
+      });
+      
+      // Chart interval selector
+      document.getElementById('chart-interval').addEventListener('change', (e) => {
+        initChart(document.getElementById('chart-pair').value, e.target.value);
+      });
+    }
+
+    // Start the dashboard when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initDashboard);
+  </script>
 </body>
-</html>
+    </html>
